@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: berich-app
+    runtime: node
+    rootDir: .
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true        # Render auto-generates a secure random value
+      - key: AUTO_BACKUP
+        value: "true"
+    disk:
+      name: berich-db
+      mountPath: /opt/render/project/src/server/db
+      sizeGB: 1                    # 1 GB persistent disk — holds DB + 30 days backups
